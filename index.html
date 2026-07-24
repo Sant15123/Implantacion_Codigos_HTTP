@@ -179,6 +179,7 @@
   .explore-card p{margin:0; font-size:13px; line-height:1.55; color:#C7C9D1;}
   .explore-card .go{font-size:12.5px; font-weight:700; color:var(--blanco); margin-top:auto;}
   .explore-card .go::after{content:" →"; }
+  .explore-grid.cols-2{grid-template-columns:repeat(2, 1fr); max-width:740px;}
 
   /* ===== FOOTER ===== */
   footer{
@@ -195,7 +196,7 @@
     .hero{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:1fr 1fr;}
     .cat-grid{grid-template-columns:1fr 1fr;}
-    .explore-grid{grid-template-columns:1fr;}
+    .explore-grid, .explore-grid.cols-2{grid-template-columns:1fr;}
     nav.links{display:none;}
   }
   @media (max-width:560px){
@@ -210,10 +211,9 @@
   <div class="nav-wrap">
     <div class="brand"><span class="tag">HTTP</span> Guía de Estados · EncomiExpress</div>
     <nav class="links">
-      <a href="#inicio">Inicio</a>
-      <a href="#por-que-importan">Por qué importan</a>
-      <a href="#categorias">Categorías</a>
-      <a href="#explorar">Más secciones</a>
+      <a href="index.html">Inicio</a>
+      <a href="categorias.html">Categorías</a>
+      <a href="codigos-asignados.html">Códigos Asignados</a>
     </nav>
   </div>
 </header>
@@ -241,7 +241,7 @@
       </div>
       <div class="wb-row">
         <div class="wb-label">Equipo de desarrollo</div>
-        <div class="wb-value small">[Completar con los nombres del equipo]</div>
+        <div class="wb-value small">Yeferson Andres Moreno Granda · Valeria Paz Arana · Santiago Suarez Duran · Sebastian Valencia Perez</div>
       </div>
       <div class="wb-row">
         <div class="wb-label">Programa</div>
@@ -352,24 +352,18 @@
       <p>Desde aquí puedes moverte al resto de la guía. Los enlaces apuntan a las páginas correspondientes del sitio.</p>
     </div>
 
-    <div class="explore-grid">
+    <div class="explore-grid cols-2">
       <a class="explore-card" href="categorias.html">
         <span class="ex-num">3.2</span>
-        <h3>Explorador por categoría</h3>
-        <p>Cada familia de códigos (1xx–5xx) con el detalle de sus estados individuales.</p>
+        <h3>Página de Categorías</h3>
+        <p>Visión general de las cinco categorías de códigos HTTP, con su rango y el detalle de sus estados individuales.</p>
         <span class="go">Ver categorías</span>
       </a>
-      <a class="explore-card" href="buscador.html">
+      <a class="explore-card" href="codigos-asignados.html">
         <span class="ex-num">3.3</span>
-        <h3>Buscador de códigos</h3>
-        <p>Consulta un código específico y su significado dentro del contexto de la API.</p>
-        <span class="go">Abrir buscador</span>
-      </a>
-      <a class="explore-card" href="recursos.html">
-        <span class="ex-num">3.4</span>
-        <h3>Recursos y referencias</h3>
-        <p>Documentación adicional, buenas prácticas y enlaces a los repositorios del proyecto.</p>
-        <span class="go">Ver recursos</span>
+        <h3>Códigos Asignados</h3>
+        <p>Códigos de estado específicos asignados al equipo, con ejemplos aplicados al backend de EncomiExpress.</p>
+        <span class="go">Ver códigos asignados</span>
       </a>
     </div>
   </section>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categorías · EncomiExpress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rojo-carga:#CC1818;
+    --azul-encomi:#1A2E6E;
+    --crema-papel:#F6F1E7;
+    --grafito:#20222B;
+    --verde-entregado:#2E7D46;
+    --ambar-aviso:#C97C1C;
+    --linea:#D8CFBB;
+    --blanco:#FFFDF9;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--crema-papel);
+    color:var(--grafito);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.eyebrow{font-family:'Space Grotesk', sans-serif;}
+  code, .code, .mono{font-family:'JetBrains Mono', monospace;}
+
+  a{color:inherit;}
+
+  .barcode{
+    height:14px;
+    background-image:repeating-linear-gradient(
+      90deg,
+      var(--grafito) 0px, var(--grafito) 2px,
+      transparent 2px, transparent 5px,
+      var(--grafito) 5px, var(--grafito) 6px,
+      transparent 6px, transparent 10px,
+      var(--grafito) 10px, var(--grafito) 13px,
+      transparent 13px, transparent 16px
+    );
+    opacity:0.85;
+  }
+  .barcode.light{ filter:invert(1) brightness(1.6); opacity:0.5; }
+
+  /* ===== NAV ===== */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:var(--blanco);
+    border-bottom:1px solid var(--linea);
+  }
+  .nav-wrap{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.2px;}
+  .brand .tag{
+    background:var(--rojo-carga); color:var(--blanco);
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+    padding:3px 7px; border-radius:3px; letter-spacing:0.5px;
+  }
+  nav.links{display:flex; gap:26px; flex-wrap:wrap;}
+  nav.links a{
+    font-size:14px; font-weight:500; text-decoration:none; color:var(--grafito);
+    padding-bottom:4px; border-bottom:2px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  nav.links a:hover{border-color:var(--rojo-carga); color:var(--rojo-carga);}
+  nav.links a.active{border-color:var(--rojo-carga); color:var(--rojo-carga);}
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    max-width:1120px; margin:0 auto; padding:54px 28px 10px;
+  }
+  .eyebrow{
+    display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--azul-encomi); margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(1.9rem, 3.6vw, 2.9rem);
+    line-height:1.1; margin:0 0 16px; font-weight:700; color:var(--grafito);
+  }
+  h1 span{color:var(--rojo-carga);}
+  .lead{font-size:16.5px; line-height:1.65; max-width:72ch; color:#454A57; margin:0;}
+
+  section{max-width:1120px; margin:0 auto; padding:44px 28px;}
+  section.tight{padding-top:16px;}
+  .section-head{margin-bottom:28px; max-width:70ch;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:1.5rem; margin:0 0 10px; font-weight:700;}
+  .section-head p{color:#454A57; line-height:1.6; margin:0; font-size:15.5px;}
+
+  /* ===== TABLA DE REFERENCIA ===== */
+  .table-wrap{
+    background:var(--blanco); border:1px solid var(--linea); border-radius:8px;
+    overflow:hidden;
+  }
+  table.ref-table{width:100%; border-collapse:collapse;}
+  table.ref-table thead th{
+    background:var(--grafito); color:var(--blanco);
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.5px;
+    text-transform:uppercase; text-align:left; padding:14px 20px; font-weight:700;
+  }
+  table.ref-table tbody td{
+    padding:16px 20px; border-top:1px solid var(--linea); font-size:14.5px; vertical-align:top;
+  }
+  table.ref-table tbody tr:nth-child(even){background:#FBF8F2;}
+  table.ref-table td.cat{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; color:var(--c);
+    white-space:nowrap;
+  }
+  table.ref-table td.range{font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#575C68; white-space:nowrap;}
+  table.ref-table td.desc{color:#3A3E48; line-height:1.55;}
+
+  /* ===== DETALLE POR CATEGORIA ===== */
+  .cat-detail{
+    background:var(--blanco); border:1px solid var(--linea); border-radius:8px;
+    padding:26px 26px 24px; margin-bottom:20px; border-left:6px solid var(--c);
+  }
+  .cat-detail-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:6px; flex-wrap:wrap;
+  }
+  .cat-detail-head .code-range{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; color:var(--c);
+  }
+  .cat-detail-head h3{margin:0; font-size:18px; font-weight:700;}
+  .cat-detail .status-chip{
+    font-size:11px; font-weight:700; font-family:'JetBrains Mono',monospace;
+    color:var(--c); border:1px solid var(--c); padding:2px 8px; border-radius:20px;
+    background:color-mix(in srgb, var(--c) 8%, transparent);
+    margin-left:auto;
+  }
+  .cat-detail > p.desc{margin:8px 0 18px; font-size:14.5px; line-height:1.6; color:#454A57; max-width:75ch;}
+  .code-list{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:10px 20px;
+  }
+  .code-item{
+    display:flex; gap:12px; align-items:baseline;
+    border-top:1px solid var(--linea); padding:10px 0;
+  }
+  .code-item .num{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14.5px; color:var(--c);
+    min-width:38px;
+  }
+  .code-item .txt{font-size:13.8px; line-height:1.5; color:#3A3E48;}
+  .code-item .txt strong{font-weight:600; color:var(--grafito);}
+
+  /* ===== FOOTER NAV ===== */
+  .page-nav{
+    display:flex; justify-content:space-between; gap:16px; margin-top:10px; flex-wrap:wrap;
+  }
+  .page-nav a{
+    text-decoration:none; font-size:14px; font-weight:700; color:var(--azul-encomi);
+    display:flex; align-items:center; gap:8px;
+  }
+  .page-nav a:hover{color:var(--rojo-carga);}
+  .page-nav a.next::after{content:" →";}
+  .page-nav a.prev::before{content:"← ";}
+
+  footer{
+    border-top:1px solid var(--linea); margin-top:20px;
+  }
+  .footer-wrap{
+    max-width:1120px; margin:0 auto; padding:26px 28px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .footer-wrap p{margin:0; font-size:12.5px; color:#8A8371;}
+  .footer-wrap .mono{font-size:11.5px;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .code-list{grid-template-columns:1fr;}
+    table.ref-table{font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="nav-wrap">
+    <div class="brand"><span class="tag">HTTP</span> Guía de Estados · EncomiExpress</div>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="categorias.html" class="active">Categorías</a>
+      <a href="codigos-asignados.html">Códigos Asignados</a>
+    </nav>
+  </div>
+</header>
+
+<div class="barcode"></div>
+
+<main>
+
+  <div class="page-head">
+    <span class="eyebrow">3.2 · Página de Categorías</span>
+    <h1>Las cinco familias de <span>códigos de estado</span></h1>
+    <p class="lead">
+      Esta sección presenta una visión general de las categorías de códigos HTTP. Cada familia se identifica
+      por su primer dígito y agrupa respuestas con un propósito común: informar, confirmar un éxito, redirigir,
+      señalar un error del cliente o reportar una falla del servidor. La tabla siguiente sirve como referencia
+      rápida y, debajo, cada categoría se detalla con sus estados individuales más comunes.
+    </p>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Referencia rápida</span>
+      <h2>Tabla de categorías</h2>
+      <p>Rango de códigos y descripción general de cada familia.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Rango de Códigos</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat" style="--c:#5C6B8A">1xx</td>
+            <td class="range">100 – 199</td>
+            <td class="desc">Respuestas informativas: indican que la solicitud fue recibida y el proceso continúa.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:#2E7D46">2xx</td>
+            <td class="range">200 – 299</td>
+            <td class="desc">Respuestas de éxito: la solicitud se recibió, entendió y procesó correctamente.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:#1A2E6E">3xx</td>
+            <td class="range">300 – 399</td>
+            <td class="desc">Redirecciones: se necesita una acción adicional, normalmente ir a otra URL, para completar la solicitud.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:#C97C1C">4xx</td>
+            <td class="range">400 – 499</td>
+            <td class="desc">Errores del cliente: la solicitud tiene un problema atribuible a quien la envió (datos inválidos, sin permisos, recurso inexistente).</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:#CC1818">5xx</td>
+            <td class="range">500 – 599</td>
+            <td class="desc">Errores del servidor: el servidor falló al intentar cumplir una solicitud aparentemente válida.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="section-head">
+      <span class="eyebrow">Detalle</span>
+      <h2>Cada categoría, código por código</h2>
+      <p>Los estados individuales más frecuentes dentro de cada familia, con un ejemplo de su uso en una API como la de EncomiExpress.</p>
+    </div>
+
+    <div class="cat-detail" style="--c:#5C6B8A">
+      <div class="cat-detail-head">
+        <span class="code-range">1xx</span>
+        <h3>Informativos</h3>
+        <span class="status-chip">en tránsito</span>
+      </div>
+      <p class="desc">El servidor confirma que recibió la solicitud y sigue procesándola. Son respuestas provisionales, poco frecuentes en APIs REST tradicionales, y no requieren que el cliente haga nada más que esperar.</p>
+      <div class="code-list">
+        <div class="code-item"><span class="num">100</span><span class="txt"><strong>Continue</strong> — el servidor recibió los encabezados y el cliente puede continuar enviando el cuerpo de la solicitud.</span></div>
+        <div class="code-item"><span class="num">101</span><span class="txt"><strong>Switching Protocols</strong> — el servidor acepta cambiar de protocolo, por ejemplo al abrir un WebSocket.</span></div>
+        <div class="code-item"><span class="num">102</span><span class="txt"><strong>Processing</strong> — la solicitud fue recibida pero aún no hay una respuesta disponible.</span></div>
+        <div class="code-item"><span class="num">103</span><span class="txt"><strong>Early Hints</strong> — adelanta encabezados de la respuesta final mientras el servidor sigue procesando.</span></div>
+      </div>
+    </div>
+
+    <div class="cat-detail" style="--c:#2E7D46">
+      <div class="cat-detail-head">
+        <span class="code-range">2xx</span>
+        <h3>Éxito</h3>
+        <span class="status-chip">entregado</span>
+      </div>
+      <p class="desc">La solicitud se recibió, entendió y procesó correctamente. Es la respuesta esperada en el flujo normal de la API: la entrega sin novedad.</p>
+      <div class="code-list">
+        <div class="code-item"><span class="num">200</span><span class="txt"><strong>OK</strong> — la solicitud se procesó con éxito, por ejemplo al consultar el listado de envíos.</span></div>
+        <div class="code-item"><span class="num">201</span><span class="txt"><strong>Created</strong> — se creó un nuevo recurso, como al registrar una nueva encomienda.</span></div>
+        <div class="code-item"><span class="num">202</span><span class="txt"><strong>Accepted</strong> — la solicitud fue aceptada para procesarse, pero aún no ha finalizado.</span></div>
+        <div class="code-item"><span class="num">204</span><span class="txt"><strong>No Content</strong> — la operación fue exitosa pero no hay contenido que devolver, como al eliminar un registro.</span></div>
+      </div>
+    </div>
+
+    <div class="cat-detail" style="--c:#1A2E6E">
+      <div class="cat-detail-head">
+        <span class="code-range">3xx</span>
+        <h3>Redirección</h3>
+        <span class="status-chip">ruta desviada</span>
+      </div>
+      <p class="desc">Se necesita una acción adicional, normalmente seguir otra URL, para completar la solicitud original.</p>
+      <div class="code-list">
+        <div class="code-item"><span class="num">301</span><span class="txt"><strong>Moved Permanently</strong> — el recurso se movió de forma definitiva a otra URL.</span></div>
+        <div class="code-item"><span class="num">302</span><span class="txt"><strong>Found</strong> — redirección temporal a otra ubicación.</span></div>
+        <div class="code-item"><span class="num">304</span><span class="txt"><strong>Not Modified</strong> — el recurso no cambió desde la última consulta; el cliente puede usar su copia en caché.</span></div>
+        <div class="code-item"><span class="num">307</span><span class="txt"><strong>Temporary Redirect</strong> — redirección temporal que conserva el método HTTP original.</span></div>
+      </div>
+    </div>
+
+    <div class="cat-detail" style="--c:#C97C1C">
+      <div class="cat-detail-head">
+        <span class="code-range">4xx</span>
+        <h3>Error del cliente</h3>
+        <span class="status-chip">remitente</span>
+      </div>
+      <p class="desc">La solicitud tiene un problema atribuible a quien la envió: datos mal formados, autenticación faltante, permisos insuficientes o un recurso inexistente.</p>
+      <div class="code-list">
+        <div class="code-item"><span class="num">400</span><span class="txt"><strong>Bad Request</strong> — la solicitud tiene una sintaxis o datos inválidos.</span></div>
+        <div class="code-item"><span class="num">401</span><span class="txt"><strong>Unauthorized</strong> — falta autenticación válida para acceder al recurso.</span></div>
+        <div class="code-item"><span class="num">403</span><span class="txt"><strong>Forbidden</strong> — el cliente está identificado pero no tiene permiso para esa acción.</span></div>
+        <div class="code-item"><span class="num">404</span><span class="txt"><strong>Not Found</strong> — el recurso solicitado no existe, como una encomienda con un ID inválido.</span></div>
+        <div class="code-item"><span class="num">409</span><span class="txt"><strong>Conflict</strong> — la solicitud entra en conflicto con el estado actual del recurso.</span></div>
+        <div class="code-item"><span class="num">422</span><span class="txt"><strong>Unprocessable Entity</strong> — la sintaxis es correcta pero los datos no cumplen las reglas de negocio.</span></div>
+      </div>
+    </div>
+
+    <div class="cat-detail" style="--c:#CC1818">
+      <div class="cat-detail-head">
+        <span class="code-range">5xx</span>
+        <h3>Error del servidor</h3>
+        <span class="status-chip">transportista</span>
+      </div>
+      <p class="desc">El servidor falló al intentar cumplir una solicitud aparentemente válida. La falla no es del cliente, sino de la infraestructura o la lógica del backend.</p>
+      <div class="code-list">
+        <div class="code-item"><span class="num">500</span><span class="txt"><strong>Internal Server Error</strong> — ocurrió un error inesperado en el servidor.</span></div>
+        <div class="code-item"><span class="num">502</span><span class="txt"><strong>Bad Gateway</strong> — un servidor intermedio recibió una respuesta inválida de otro servidor.</span></div>
+        <div class="code-item"><span class="num">503</span><span class="txt"><strong>Service Unavailable</strong> — el servidor no está listo para atender la solicitud, por ejemplo en mantenimiento.</span></div>
+        <div class="code-item"><span class="num">504</span><span class="txt"><strong>Gateway Timeout</strong> — un servidor intermedio no recibió respuesta a tiempo de otro servidor.</span></div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a class="prev" href="index.html">Inicio</a>
+      <a class="next" href="codigos-asignados.html">Códigos Asignados</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="barcode light" style="height:8px;"></div>
+  <div class="footer-wrap">
+    <p>Guía de Estados HTTP · Proyecto formativo SENA — Tecnología en ADSO</p>
+    <p class="mono">encomiexpress-frontend · encomiexpress-backend</p>
+  </div>
+</footer>
+
+</body>
+</html>
