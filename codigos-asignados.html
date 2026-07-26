@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Códigos Asignados · EncomiExpress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rojo-carga:#CC1818;
+    --azul-encomi:#1A2E6E;
+    --crema-papel:#F6F1E7;
+    --grafito:#20222B;
+    --verde-entregado:#2E7D46;
+    --ambar-aviso:#C97C1C;
+    --linea:#D8CFBB;
+    --blanco:#FFFDF9;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--crema-papel);
+    color:var(--grafito);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.eyebrow{font-family:'Space Grotesk', sans-serif;}
+  code, .code, .mono{font-family:'JetBrains Mono', monospace;}
+
+  a{color:inherit;}
+
+  .barcode{
+    height:14px;
+    background-image:repeating-linear-gradient(
+      90deg,
+      var(--grafito) 0px, var(--grafito) 2px,
+      transparent 2px, transparent 5px,
+      var(--grafito) 5px, var(--grafito) 6px,
+      transparent 6px, transparent 10px,
+      var(--grafito) 10px, var(--grafito) 13px,
+      transparent 13px, transparent 16px
+    );
+    opacity:0.85;
+  }
+  .barcode.light{ filter:invert(1) brightness(1.6); opacity:0.5; }
+
+  /* ===== NAV ===== */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:var(--blanco);
+    border-bottom:1px solid var(--linea);
+  }
+  .nav-wrap{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.2px;}
+  .brand .tag{
+    background:var(--rojo-carga); color:var(--blanco);
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+    padding:3px 7px; border-radius:3px; letter-spacing:0.5px;
+  }
+  nav.links{display:flex; gap:26px; flex-wrap:wrap;}
+  nav.links a{
+    font-size:14px; font-weight:500; text-decoration:none; color:var(--grafito);
+    padding-bottom:4px; border-bottom:2px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  nav.links a:hover{border-color:var(--rojo-carga); color:var(--rojo-carga);}
+  nav.links a.active{border-color:var(--rojo-carga); color:var(--rojo-carga);}
+
+  /* ===== PAGE HEAD ===== */
+  .page-head{
+    max-width:1120px; margin:0 auto; padding:54px 28px 10px;
+  }
+  .eyebrow{
+    display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--azul-encomi); margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(1.9rem, 3.6vw, 2.9rem);
+    line-height:1.1; margin:0 0 16px; font-weight:700; color:var(--grafito);
+  }
+  h1 span{color:var(--rojo-carga);}
+  .lead{font-size:16.5px; line-height:1.65; max-width:72ch; color:#454A57; margin:0;}
+
+  section{max-width:1120px; margin:0 auto; padding:44px 28px;}
+  section.tight{padding-top:16px;}
+  .section-head{margin-bottom:28px; max-width:70ch;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:1.5rem; margin:0 0 10px; font-weight:700;}
+  .section-head p{color:#454A57; line-height:1.6; margin:0; font-size:15.5px;}
+
+  /* ===== TABLA DE REFERENCIA ===== */
+  .table-wrap{
+    background:var(--blanco); border:1px solid var(--linea); border-radius:8px;
+    overflow:hidden;
+  }
+  table.ref-table{width:100%; border-collapse:collapse;}
+  table.ref-table thead th{
+    background:var(--grafito); color:var(--blanco);
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.5px;
+    text-transform:uppercase; text-align:left; padding:14px 20px; font-weight:700;
+  }
+  table.ref-table tbody td{
+    padding:16px 20px; border-top:1px solid var(--linea); font-size:14.5px; vertical-align:top;
+  }
+  table.ref-table tbody tr:nth-child(even){background:#FBF8F2;}
+  table.ref-table td.cat{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; color:var(--c);
+    white-space:nowrap;
+  }
+  table.ref-table td.range{font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#575C68; white-space:nowrap;}
+  table.ref-table td.desc{color:#3A3E48; line-height:1.55;}
+
+  /* ===== FOOTER NAV ===== */
+  .page-nav{
+    display:flex; justify-content:space-between; gap:16px; margin-top:10px; flex-wrap:wrap;
+  }
+  .page-nav a{
+    text-decoration:none; font-size:14px; font-weight:700; color:var(--azul-encomi);
+    display:flex; align-items:center; gap:8px;
+  }
+  .page-nav a:hover{color:var(--rojo-carga);}
+  .page-nav a.next::after{content:" →";}
+  .page-nav a.prev::before{content:"← ";}
+
+  footer{
+    border-top:1px solid var(--linea); margin-top:20px;
+  }
+  .footer-wrap{
+    max-width:1120px; margin:0 auto; padding:26px 28px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .footer-wrap p{margin:0; font-size:12.5px; color:#8A8371;}
+  .footer-wrap .mono{font-size:11.5px;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    table.ref-table{font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="nav-wrap">
+    <div class="brand"><span class="tag">HTTP</span> Guía de Estados · EncomiExpress</div>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="categorias.html">Categorías</a>
+      <a href="codigos-asignados.html" class="active">Códigos Asignados</a>
+    </nav>
+  </div>
+</header>
+
+<div class="barcode"></div>
+
+<main>
+
+  <div class="page-head">
+    <span class="eyebrow">3.3 · Página de Códigos Asignados</span>
+    <h1>Códigos HTTP <span>asignados al equipo</span></h1>
+    <p class="lead">
+      Esta página documenta los códigos de estado HTTP asignados al equipo de desarrollo, con su nombre oficial,
+      descripción y un ejemplo práctico aplicado al backend de EncomiExpress. Sirve como referencia rápida
+      para interpretar respuestas en el flujo real de la API.
+    </p>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Referencia</span>
+      <h2>Códigos asignados</h2>
+      <p>Código HTTP, nombre oficial y contexto de uso dentro del sistema EncomiExpress.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th>Código HTTP</th>
+            <th>Nombre Oficial</th>
+            <th>Descripción / Contexto de uso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat" style="--c:var(--verde-entregado)">200</td>
+            <td>OK</td>
+            <td class="desc">La solicitud se procesó con éxito. Ejemplo: al consultar el estado de una encomienda ya registrada.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--verde-entregado)">201</td>
+            <td>Created</td>
+            <td class="desc">Se creó un nuevo recurso. Ejemplo: al registrar una nueva encomienda en el sistema.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--verde-entregado)">202</td>
+            <td>Accepted</td>
+            <td class="desc">La solicitud fue aceptada pero aún se está procesando. Ejemplo: al programar una recolección que se confirmará más tarde.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--verde-entregado)">204</td>
+            <td>No Content</td>
+            <td class="desc">La operación fue exitosa pero no hay contenido que devolver. Ejemplo: al eliminar el registro de un conductor.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">400</td>
+            <td>Bad Request</td>
+            <td class="desc">La solicitud tiene datos o sintaxis inválida. Ejemplo: enviar un formulario de encomienda sin el campo de destinatario.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">401</td>
+            <td>Unauthorized</td>
+            <td class="desc">Falta autenticación válida. Ejemplo: intentar consultar rutas sin un token de sesión.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">403</td>
+            <td>Forbidden</td>
+            <td class="desc">El cliente está identificado pero no tiene permisos. Ejemplo: un conductor intentando acceder al panel de administración.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">404</td>
+            <td>Not Found</td>
+            <td class="desc">El recurso solicitado no existe. Ejemplo: consultar una encomienda con un ID inexistente.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">405</td>
+            <td>Method Not Allowed</td>
+            <td class="desc">El método HTTP no está permitido en ese endpoint. Ejemplo: usar DELETE en una ruta que solo acepta GET.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">409</td>
+            <td>Conflict</td>
+            <td class="desc">La solicitud entra en conflicto con el estado actual del recurso. Ejemplo: intentar registrar dos veces la misma guía.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">415</td>
+            <td>Unsupported Media Type</td>
+            <td class="desc">El formato del cuerpo de la solicitud no es soportado. Ejemplo: enviar XML cuando la API solo acepta JSON.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">422</td>
+            <td>Unprocessable Entity</td>
+            <td class="desc">Datos sintácticamente correctos pero que violan reglas de negocio. Ejemplo: una fecha de entrega anterior a la fecha de recolección.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--ambar-aviso)">429</td>
+            <td>Too Many Requests</td>
+            <td class="desc">Se superó el límite de solicitudes permitidas. Ejemplo: consultar el estado de rutas demasiadas veces en poco tiempo.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--rojo-carga)">500</td>
+            <td>Internal Server Error</td>
+            <td class="desc">Ocurrió un error inesperado en el servidor. Ejemplo: una falla no controlada al calcular una tarifa de envío.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--rojo-carga)">501</td>
+            <td>Not Implemented</td>
+            <td class="desc">El servidor no soporta la funcionalidad solicitada. Ejemplo: una futura ruta de tracking en tiempo real aún no implementada.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--rojo-carga)">502</td>
+            <td>Bad Gateway</td>
+            <td class="desc">Un servidor intermedio recibió una respuesta inválida de otro servidor. Ejemplo: fallo de comunicación entre el gateway y el microservicio de pagos.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--rojo-carga)">503</td>
+            <td>Service Unavailable</td>
+            <td class="desc">El servidor no está listo para atender solicitudes (mantenimiento o sobrecarga). Ejemplo: durante un despliegue del backend.</td>
+          </tr>
+          <tr>
+            <td class="cat" style="--c:var(--rojo-carga)">504</td>
+            <td>Gateway Timeout</td>
+            <td class="desc">Un servidor intermedio no recibió respuesta a tiempo de otro servidor. Ejemplo: consulta a un proveedor externo de geolocalización que tarda demasiado en responder.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="page-nav">
+      <a class="prev" href="categorias.html">Categorías</a>
+      <a class="next" href="index.html">Inicio</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="barcode light" style="height:8px;"></div>
+  <div class="footer-wrap">
+    <p>Guía de Estados HTTP · Proyecto formativo SENA — Tecnología en ADSO</p>
+    <p class="mono">encomiexpress-frontend · encomiexpress-backend</p>
+  </div>
+</footer>
+
+</body>
+</html>
